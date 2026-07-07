@@ -1,0 +1,580 @@
+/* Velr marketing pages
+   Pages opt in with a marker element carrying data-velr-dark-page. */
+
+html:has([data-velr-dark-page]) {
+  --velr-header-stack: 4.8rem;
+  --velr-bg: #06070a;
+  --velr-page-background:
+    radial-gradient(circle at top left, rgba(76, 94, 136, 0.28), transparent 28rem),
+    radial-gradient(circle at bottom right, rgba(20, 120, 92, 0.18), transparent 30rem),
+    linear-gradient(135deg, #111114 0%, #181a1f 48%, var(--velr-bg) 100%);
+  --velr-panel: rgba(8, 12, 18, 0.68);
+  --velr-panel-strong: rgba(5, 7, 10, 0.84);
+  --velr-border: rgba(148, 163, 184, 0.26);
+  --velr-border-soft: rgba(148, 163, 184, 0.16);
+  --velr-text: #e9eef6;
+  --velr-text-muted: #cbd5e1;
+  --velr-text-soft: #94a3b8;
+  --velr-accent: #7dd3fc;
+  --velr-link: #93c5fd;
+  --velr-radius: 0.5rem;
+  color-scheme: dark;
+}
+
+html:has([data-velr-dark-page]),
+html:has([data-velr-dark-page]) body {
+  background: var(--velr-page-background);
+  background-attachment: fixed;
+}
+
+html:has([data-velr-dark-page]) body::before {
+  display: none;
+}
+
+html:has([data-velr-dark-page]) .md-main,
+html:has([data-velr-dark-page]) .md-main__inner,
+html:has([data-velr-dark-page]) [data-md-component="container"],
+html:has([data-velr-dark-page]) [data-md-component="content"] {
+  background: transparent !important;
+  box-shadow: none;
+}
+
+html:has([data-velr-dark-page]) .md-header,
+html:has([data-velr-dark-page]) .md-header__inner,
+html:has([data-velr-dark-page]) .md-tabs,
+html:has([data-velr-dark-page]) .md-tabs--primary {
+  background-image: none !important;
+  box-shadow: none;
+}
+
+html:has([data-velr-dark-page]) .md-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--velr-page-background) !important;
+  background-attachment: fixed !important;
+  border-bottom: 0;
+  backdrop-filter: none;
+}
+
+html:has([data-velr-dark-page]) .md-tabs {
+  position: relative;
+  z-index: 3;
+  background: var(--velr-page-background) !important;
+  background-attachment: fixed !important;
+  border-bottom: 0;
+  backdrop-filter: none;
+}
+
+html:has([data-velr-dark-page]) .md-header__inner,
+html:has([data-velr-dark-page]) .md-tabs--primary {
+  background: transparent !important;
+  backdrop-filter: none;
+}
+
+html:has([data-velr-dark-page]) .md-header,
+html:has([data-velr-dark-page]) .md-header a,
+html:has([data-velr-dark-page]) .md-header .md-icon,
+html:has([data-velr-dark-page]) .md-tabs__link {
+  color: var(--velr-text);
+}
+
+html:has([data-velr-dark-page]) .md-header__topic:first-child {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+html:has([data-velr-dark-page]) .md-header__topic + .md-header__topic {
+  display: none !important;
+}
+
+html:has([data-velr-dark-page]) .md-tabs__item--active > .md-tabs__link {
+  color: #ffffff;
+  box-shadow: 0 2px 0 rgba(255, 255, 255, 0.72) !important;
+}
+
+html:has([data-velr-dark-page]) [data-md-component="palette"],
+html:has([data-velr-dark-page]) .md-footer {
+  display: none !important;
+}
+
+@media (min-width: 76.25em) {
+  html:has([data-velr-dark-page]) .md-sidebar {
+    display: none !important;
+  }
+}
+
+@media (max-width: 76.234375em) {
+  html:has([data-velr-dark-page]) .md-sidebar--primary {
+    display: block !important;
+  }
+
+  html:has([data-velr-dark-page]) .md-sidebar--primary,
+  html:has([data-velr-dark-page]) .md-sidebar--primary .md-sidebar__scrollwrap,
+  html:has([data-velr-dark-page]) .md-sidebar--primary .md-sidebar__inner,
+  html:has([data-velr-dark-page]) .md-sidebar--primary .md-nav {
+    background: #10131a;
+  }
+
+  html:has([data-velr-dark-page]) .md-sidebar--primary .md-nav__title {
+    background: #10131a;
+    box-shadow: none;
+    color: #ffffff;
+  }
+
+  html:has([data-velr-dark-page]) .md-sidebar--primary .md-nav__link {
+    color: var(--velr-text-muted);
+  }
+
+  html:has([data-velr-dark-page]) .md-sidebar--primary .md-nav__link--active,
+  html:has([data-velr-dark-page]) .md-sidebar--primary .md-nav__link:is(:focus, :hover) {
+    color: #ffffff;
+  }
+}
+
+html:has([data-velr-dark-page]) .md-content {
+  display: block;
+}
+
+html:has([data-velr-dark-page]) .md-content__inner {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.2rem 4rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+html:has([data-velr-dark-page]) .md-typeset,
+html:has([data-velr-dark-page]) .md-typeset h1,
+html:has([data-velr-dark-page]) .md-typeset h2,
+html:has([data-velr-dark-page]) .md-typeset h3,
+html:has([data-velr-dark-page]) .md-typeset p,
+html:has([data-velr-dark-page]) .md-typeset li {
+  color: var(--velr-text);
+}
+
+html:has([data-velr-dark-page]) .md-typeset p:has(.md-button) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+html:has([data-velr-dark-page]) .md-typeset .md-button {
+  margin: 0;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+html:has([data-velr-dark-page]) .md-typeset .md-button:not(.md-button--primary) {
+  background-color: rgba(15, 23, 42, 0.72);
+  color: #e2e8f0;
+  border-color: var(--velr-border-soft);
+}
+
+html:has([data-velr-dark-page]) .md-typeset .md-button:not(.md-button--primary):hover {
+  background-color: rgba(30, 41, 59, 0.92);
+  color: #ffffff;
+}
+
+.velr-eyebrow {
+  margin: 0 0 0.8rem;
+  color: var(--velr-accent) !important;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.velr-lede {
+  max-width: 48rem;
+  color: var(--velr-text-muted) !important;
+  font-size: 1.02rem;
+  line-height: 1.58;
+}
+
+.velr-gateway h1,
+.velr-product-hero h1,
+.velr-ifc-hero h1 {
+  max-width: 54rem;
+  margin: 0 0 1rem;
+  color: #ffffff !important;
+  font-weight: 760;
+  line-height: 1.02;
+}
+
+.velr-gateway h1 {
+  font-size: 3.35rem;
+}
+
+.velr-product-hero h1,
+.velr-ifc-hero h1 {
+  font-size: 3.2rem;
+}
+
+.velr-gateway {
+  min-height: calc(100vh - 11rem);
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(22rem, 1.08fr);
+  grid-template-areas:
+    "eyebrow cards"
+    "title cards"
+    "lede cards";
+  gap: 1.5rem 2rem;
+  align-items: center;
+}
+
+.velr-gateway > .velr-eyebrow {
+  grid-area: eyebrow;
+  align-self: end;
+}
+
+.velr-gateway > h1 {
+  grid-area: title;
+}
+
+.velr-gateway > .velr-lede {
+  grid-area: lede;
+  align-self: start;
+}
+
+.velr-gateway > .velr-product-grid {
+  grid-area: cards;
+  align-self: center;
+}
+
+.velr-gateway > *,
+.velr-product-hero > *,
+.velr-ifc-hero > *,
+.velr-feature-grid > *,
+.velr-proof-grid > * {
+  min-width: 0;
+}
+
+.velr-product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+}
+
+.velr-product-card {
+  min-height: 11.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding: 1rem;
+  border: 1px solid var(--velr-border);
+  border-radius: var(--velr-radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    var(--velr-panel);
+  color: var(--velr-text) !important;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+}
+
+.velr-product-card,
+.velr-product-card * {
+  text-decoration: none !important;
+}
+
+.velr-product-card::before,
+.velr-product-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.velr-product-card::before {
+  opacity: 0.38;
+}
+
+.velr-card-core::before {
+  background:
+    linear-gradient(135deg, transparent 0 48%, rgba(125, 211, 252, 0.18) 49% 51%, transparent 52%),
+    repeating-linear-gradient(90deg, rgba(125, 211, 252, 0.16) 0 1px, transparent 1px 4.2rem);
+}
+
+.velr-card-ifc::before {
+  background:
+    linear-gradient(140deg, rgba(34, 197, 94, 0.2), transparent 45%),
+    url("../images/ifc/bridge-overview.png") center / cover;
+}
+
+.velr-product-card::after {
+  background: linear-gradient(180deg, transparent 5%, rgba(5, 6, 8, 0.84) 62%);
+}
+
+.velr-product-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.velr-card-kicker {
+  width: max-content;
+  margin-bottom: 0.7rem;
+  padding: 0.24rem 0.5rem;
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  border-radius: 999px;
+  color: #dbeafe;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.velr-product-card strong {
+  margin-bottom: 0.55rem;
+  color: #ffffff;
+  font-size: 2.35rem;
+  line-height: 1;
+}
+
+.velr-product-card span:not(.velr-card-kicker) {
+  max-width: 29rem;
+  color: var(--velr-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.velr-product-card em {
+  margin-top: 1.15rem;
+  color: var(--velr-link);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.velr-product-hero,
+.velr-ifc-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.velr-ifc-copy p:not(.velr-eyebrow),
+.velr-product-hero p:not(.velr-eyebrow) {
+  max-width: 43rem;
+}
+
+.velr-terminal-card,
+.velr-visual-frame,
+.velr-feature-grid > div,
+.velr-choice-band,
+.velr-proof-grid article {
+  border: 1px solid var(--velr-border);
+  border-radius: var(--velr-radius);
+  background: var(--velr-panel);
+}
+
+.velr-terminal-card {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.velr-terminal-card .md-code__nav {
+  display: none !important;
+}
+
+.velr-terminal-card .highlight,
+.velr-terminal-card pre,
+.velr-terminal-card pre > code {
+  background: #1f1f1f !important;
+  color: #f8f8f2 !important;
+  box-shadow: none !important;
+}
+
+.velr-terminal-card pre {
+  margin: 0;
+  padding: 1rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.35rem;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.velr-terminal-card pre > code {
+  white-space: pre;
+}
+
+.velr-terminal-card pre code .c,
+.velr-terminal-card pre code .c1,
+.velr-terminal-card pre code .cm {
+  color: #a6e22e;
+}
+
+.velr-terminal-card pre code .k,
+.velr-terminal-card pre code .kd,
+.velr-terminal-card pre code .kn,
+.velr-terminal-card pre code .kr,
+.velr-terminal-card pre code .kc {
+  color: #60a5fa;
+}
+
+.velr-terminal-card pre code .s,
+.velr-terminal-card pre code .s1,
+.velr-terminal-card pre code .s2,
+.velr-terminal-card pre code .sd {
+  color: #ce9178;
+}
+
+.velr-terminal-card pre code .m,
+.velr-terminal-card pre code .mi,
+.velr-terminal-card pre code .mf {
+  color: #ae81ff;
+}
+
+.velr-terminal-card pre code .p {
+  color: #fbbf24;
+}
+
+.velr-terminal-card pre code .n,
+.velr-terminal-card pre code .o {
+  color: #f8f8f2;
+}
+
+.velr-visual-frame {
+  margin: 0;
+  overflow: hidden;
+}
+
+.velr-visual-frame img,
+.velr-proof-grid img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.velr-hero-shot {
+  aspect-ratio: 16 / 10;
+}
+
+.velr-feature-grid,
+.velr-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+.velr-feature-grid > div,
+.velr-proof-grid article > div,
+.velr-choice-band {
+  padding: 1rem;
+}
+
+.velr-proof-grid article {
+  overflow: hidden;
+}
+
+.velr-proof-grid img {
+  aspect-ratio: 16 / 10;
+}
+
+.velr-feature-grid h2,
+.velr-choice-band h2,
+.velr-proof-grid h2 {
+  margin: 0 0 0.5rem;
+  color: #ffffff !important;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.velr-feature-grid p,
+.velr-choice-band p,
+.velr-proof-grid p {
+  margin: 0;
+  color: var(--velr-text-muted) !important;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.velr-choice-band {
+  margin-top: 2rem;
+}
+
+@media (max-width: 1120px) {
+  .velr-gateway h1 {
+    font-size: 3rem;
+  }
+
+  .velr-product-hero h1,
+  .velr-ifc-hero h1 {
+    font-size: 2.75rem;
+  }
+}
+
+@media (max-width: 960px) {
+  html:has([data-velr-dark-page]) .md-content__inner {
+    padding-top: 2.25rem;
+  }
+
+  .velr-gateway,
+  .velr-product-hero,
+  .velr-ifc-hero,
+  .velr-feature-grid,
+  .velr-proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .velr-gateway {
+    min-height: auto;
+    grid-template-areas:
+      "eyebrow"
+      "title"
+      "lede"
+      "cards";
+  }
+
+  .velr-product-card {
+    min-height: 15rem;
+  }
+}
+
+@media (max-width: 560px) {
+  html:has([data-velr-dark-page]),
+  html:has([data-velr-dark-page]) body {
+    background-attachment: scroll;
+  }
+
+  html:has([data-velr-dark-page]) body::before {
+    height: 3rem;
+  }
+
+  html:has([data-velr-dark-page]) .md-content__inner {
+    padding: 2rem 0.85rem 3rem;
+  }
+
+  .velr-gateway h1,
+  .velr-product-hero h1,
+  .velr-ifc-hero h1 {
+    font-size: 2.05rem;
+    line-height: 1.12;
+  }
+
+  .velr-lede {
+    font-size: 0.92rem;
+    line-height: 1.62;
+  }
+
+  .velr-product-card {
+    min-height: 15rem;
+    padding: 1rem;
+  }
+
+  .velr-product-card strong {
+    font-size: 2rem;
+  }
+
+  html:has([data-velr-dark-page]) .md-typeset .md-button {
+    font-size: 0.74rem;
+    padding: 0.42rem 0.72rem;
+  }
+}

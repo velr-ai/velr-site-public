@@ -1,0 +1,2808 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Velr is a lightweight, blazingly fast Rust database that unifies openCypher graphs, SQL, BM25 full-text search, vectors, and time-series on top of SQLite.">
+      
+      
+        <meta name="author" content="Tomas Karlsson">
+      
+      
+        <link rel="canonical" href="https://velr.ai/docs/python-driver/">
+      
+      
+        <link rel="prev" href="../shell/">
+      
+      
+        <link rel="next" href="../rust-driver/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.47">
+    
+    
+      
+        <title>Python Driver - velr.ai</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.5e19f6ca.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/landing.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-driver" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="velr.ai" class="md-header__button md-logo" aria-label="velr.ai" data-md-component="logo">
+      
+  <img src="../../assets/logo_bf_small.png" alt="velr.ai">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            velr.ai
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python Driver
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/velr-ai/velr" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../velr/" class="md-tabs__link">
+        
+  
+  Velr
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../velr-ifc/" class="md-tabs__link">
+        
+  
+  BIM
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../get-started/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contact/" class="md-tabs__link">
+        
+  
+  Contact
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../community/" class="md-tabs__link">
+          
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="velr.ai" class="md-nav__button md-logo" aria-label="velr.ai" data-md-component="logo">
+      
+  <img src="../../assets/logo_bf_small.png" alt="velr.ai">
+
+    </a>
+    velr.ai
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/velr-ai/velr" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewBox="0 0 24 24"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../velr/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Velr
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../velr-ifc/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-box" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  BIM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Documentation
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Documentation
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get-started/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Markdown</title><path d="M22.27 19.385H1.73A1.73 1.73 0 0 1 0 17.655V6.345a1.73 1.73 0 0 1 1.73-1.73h20.54A1.73 1.73 0 0 1 24 6.345v11.308a1.73 1.73 0 0 1-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Get Started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-terminal" viewBox="0 0 24 24"><path d="M12 19h8M4 17l6-6-6-6"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Velr CLI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Driver
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python Driver
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#community" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Community
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Release status
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-version-7-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Schema version 7 compatibility
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Installation
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#licensing-in-simple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Licensing in simple terms
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Quick start
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Schema migration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introspection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fulltext-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fulltext Search
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vector-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vector Search
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Query model
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Query model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>run()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exec_one" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>exec_one()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>exec()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bounded-result-previews" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bounded result previews
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-parameter-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Query parameter binding
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-lifetime-and-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Table lifetime and ownership
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table lifetime and ownership">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tables-from-exec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tables from <code>exec()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tables-from-exec_one" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tables from <code>exec_one()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rows-and-cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rows and cells
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactions-and-savepoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transactions and savepoints
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transactions and savepoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#savepoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Savepoints
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pandas-polars-pyarrow-interop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        pandas / Polars / PyArrow interop
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pandas &#x2f; Polars &#x2f; PyArrow interop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        pandas
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polars" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Polars
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyarrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PyArrow
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-from-an-existing-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Export from an existing table
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binding-arrow-pandas-polars-numpy-and-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Binding Arrow, pandas, Polars, NumPy, and records
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binding Arrow, pandas, Polars, NumPy, and records">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bind-a-pandas-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bind a pandas DataFrame
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind-a-list-of-dicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bind a list of dicts
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Explain support
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-language-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Query language support
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Supported functions
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-and-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Graph and path
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lists-and-predicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Lists and predicates
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strings-and-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Strings and conversion
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Numeric
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Temporal
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aggregates" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Aggregates
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Thread safety
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Platform support
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        License
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rust-driver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Rust Driver
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javascript-driver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  JavaScript / TypeScript Driver
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-driver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Go Driver
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../java-driver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Java Driver
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kotlin-driver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Kotlin Driver
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Contact
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../community/" class="md-nav__link ">
+              
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Community
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Community
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#community" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Community
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Release status
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-version-7-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Schema version 7 compatibility
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Installation
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#licensing-in-simple-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Licensing in simple terms
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Quick start
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Schema migration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Introspection
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fulltext-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Fulltext Search
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vector-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Vector Search
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Query model
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Query model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>run()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exec_one" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>exec_one()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>exec()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bounded-result-previews" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bounded result previews
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-parameter-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Query parameter binding
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-lifetime-and-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Table lifetime and ownership
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table lifetime and ownership">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tables-from-exec" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tables from <code>exec()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tables-from-exec_one" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tables from <code>exec_one()</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rows-and-cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rows and cells
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transactions-and-savepoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Transactions and savepoints
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transactions and savepoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#savepoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Savepoints
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pandas-polars-pyarrow-interop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        pandas / Polars / PyArrow interop
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pandas &#x2f; Polars &#x2f; PyArrow interop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        pandas
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polars" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Polars
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyarrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        PyArrow
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-from-an-existing-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Export from an existing table
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binding-arrow-pandas-polars-numpy-and-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Binding Arrow, pandas, Polars, NumPy, and records
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binding Arrow, pandas, Polars, NumPy, and records">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bind-a-pandas-dataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bind a pandas DataFrame
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind-a-list-of-dicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Bind a list of dicts
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Explain support
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-language-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Query language support
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Supported functions
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graph-and-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Graph and path
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lists-and-predicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Lists and predicates
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strings-and-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Strings and conversion
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Numeric
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporal" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Temporal
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aggregates" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Aggregates
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Thread safety
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Platform support
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        License
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../get-started/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="python-driver">Python Driver<a class="headerlink" href="#python-driver" title="Permanent link">&para;</a></h1>
+<p>Velr is an embedded property-graph database from Velr.ai, written in Rust, built on top of SQLite (persisting to a standard SQLite database file) and queried using the openCypher language.</p>
+<p>It runs in-process and is designed for local, embedded, and edge use cases.</p>
+<p>This package provides the <strong>Python bindings</strong> for Velr. It wraps a bundled native runtime with a C ABI, implemented in Rust, and exposes a small, Pythonic API for executing Cypher queries, streaming result tables, working with transactions, and exporting results to Arrow, pandas, and Polars.</p>
+<p>This page follows the public Python package README. For the latest release-specific notes, see the <a href="https://github.com/velr-ai/velr/blob/main/python/velrpy/README.md">Python driver README</a> and the <a href="https://pypi.org/project/velr/">Velr package on PyPI</a>.</p>
+<p>For the main Velr public entry point, see <a href="https://github.com/velr-ai/velr">velr-ai/velr</a>.
+For the Velr website, see <a href="https://velr.ai/">velr.ai</a>.</p>
+<h2 id="community">Community<a class="headerlink" href="#community" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Community and questions:</strong> <a href="https://github.com/velr-ai/velr/discussions">GitHub Discussions</a></li>
+<li><strong>Bug reports and feature requests:</strong> <a href="https://github.com/velr-ai/velr/issues">GitHub Issues</a></li>
+<li><strong>Python examples:</strong> <a href="https://github.com/velr-ai/velr-python-examples">velr-python-examples</a></li>
+</ul>
+<p>We’d love to have you join the Velr community.</p>
+<hr />
+<h2 id="release-status">Release status<a class="headerlink" href="#release-status" title="Permanent link">&para;</a></h2>
+<p>Velr is currently in public <strong>alpha</strong>.</p>
+<ul>
+<li>The Python API is still evolving.</li>
+<li>Velr supports openCypher and passes all positive openCypher TCK tests. Exact
+  error semantics are not guaranteed to match other openCypher implementations.</li>
+<li>Velr 0.2.14 includes a breaking on-disk storage change; existing databases from earlier releases must be recreated by re-importing the source data.</li>
+<li>Starting with the <code>0.3.x</code> series, we intend to guarantee internal database compatibility within the branch.</li>
+</ul>
+<h3 id="schema-version-7-compatibility">Schema version 7 compatibility<a class="headerlink" href="#schema-version-7-compatibility" title="Permanent link">&para;</a></h3>
+<p>This release's current on-disk schema is version 7. Supported older databases
+can be opened with <code>Velr.open()</code> or <code>Velr.open_readonly()</code> without changing the
+file. Reads continue to work on those databases, but writes (<code>CREATE</code>, <code>MERGE</code>,
+<code>SET</code>, <code>DELETE</code>, <code>DETACH DELETE</code>, and other mutating queries) are only available
+after migrating to the current schema version. This is intentional: migration
+is an explicit maintenance operation, not a side effect of opening a database.</p>
+<p>Velr is already usable for real workflows and representative use cases, but rough edges remain and the API is not yet stable.</p>
+<p>BM25 fulltext search and vector/ANN search are available today through Cypher
+DDL and <code>CALL</code> syntax. API details may still evolve while Velr remains alpha.</p>
+<hr />
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>Install from <a href="https://pypi.org/project/velr/">PyPI</a>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>velr
+</span></code></pre></div>
+<p>For Arrow / dataframe workflows, install the optional Python dependencies you want to use:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pyarrow<span class="w"> </span>pandas<span class="w"> </span>polars
+</span></code></pre></div>
+<h3 id="licensing-in-simple-terms">Licensing in simple terms<a class="headerlink" href="#licensing-in-simple-terms" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The <strong>Python binding source code</strong> in this package is licensed under <strong>MIT</strong>.</li>
+<li>The <strong>bundled native runtime binaries</strong> may be <strong>used and freely redistributed in unmodified form</strong> under the terms of <strong><code>LICENSE.runtime</code></strong>.</li>
+</ul>
+<hr />
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">MOVIES_CREATE</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="s2">CREATE</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="s2">  (keanu:Person:Actor {name:&#39;Keanu Reeves&#39;, born:1964}),</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="s2">  (nolan:Person:Director {name:&#39;Christopher Nolan&#39;}),</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="s2">  (matrix:Movie {title:&#39;The Matrix&#39;, released:1999, genres:[&#39;Sci-Fi&#39;,&#39;Action&#39;]}),</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="s2">  (inception:Movie {title:&#39;Inception&#39;, released:2010, genres:[&#39;Sci-Fi&#39;,&#39;Heist&#39;]}),</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="s2">  (keanu)-[:ACTED_IN {roles:[&#39;Neo&#39;]}]-&gt;(matrix),</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="s2">  (nolan)-[:DIRECTED]-&gt;(inception);</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">MOVIES_CREATE</span><span class="p">)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="s2">&quot;MATCH (m:Movie {title:&#39;Inception&#39;}) &quot;</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="s2">&quot;RETURN m.title AS title, m.released AS year, m.genres AS genres&quot;</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">column_names</span><span class="p">())</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="k">with</span> <span class="n">table</span><span class="o">.</span><span class="n">rows</span><span class="p">()</span> <span class="k">as</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>            <span class="n">row</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    <span class="n">title</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">genres</span> <span class="o">=</span> <span class="n">row</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="o">.</span><span class="n">as_python</span><span class="p">())</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">year</span><span class="o">.</span><span class="n">as_python</span><span class="p">())</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">genres</span><span class="o">.</span><span class="n">as_python</span><span class="p">())</span>
+</span></code></pre></div>
+<p>Open a file-backed database instead of an in-memory database:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CREATE (:Person {name:&#39;Alice&#39;})&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Open an existing database for reads only:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open_readonly</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span><span class="s2">&quot;MATCH (n) RETURN count(n) AS count&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]))</span>
+</span></code></pre></div>
+<p><code>open_readonly()</code> never creates, initializes, migrates, or repairs a database.
+The file must already exist and have a supported Velr schema version. Older
+supported databases, such as schema version 3, 4, 5, or 6 databases opened by a
+schema version 7 runtime, remain available for reads. Writes and features that
+require the current schema fail with a normal query error until the database is
+explicitly migrated.</p>
+<hr />
+<h2 id="schema-migration">Schema migration<a class="headerlink" href="#schema-migration" title="Permanent link">&para;</a></h2>
+<p>Velr does not migrate supported older databases automatically on open. Use the
+driver migration API, or run <code>MIGRATE DATABASE</code>, from maintenance code when you
+intend to update the on-disk schema. See the release-status note above for the
+schema version 7 read/write compatibility behavior.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">needs_migration</span><span class="p">():</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="n">report</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">migrate</span><span class="p">()</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">report</span><span class="o">.</span><span class="n">from_version</span><span class="p">,</span> <span class="n">report</span><span class="o">.</span><span class="n">to_version</span><span class="p">,</span> <span class="n">report</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
+</span></code></pre></div>
+<p>The equivalent Cypher command is useful for scripts and tools that already work
+through query execution:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span><span class="s2">&quot;MIGRATE DATABASE&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]))</span>
+</span></code></pre></div>
+<hr />
+<h2 id="introspection">Introspection<a class="headerlink" href="#introspection" title="Permanent link">&para;</a></h2>
+<p>Use <code>SHOW CURRENT GRAPH SHAPE</code> to inspect the observed schema of the graph. It
+reports the shape present in stored data: node labels, relationship types,
+properties, observed value types, and counts. It is an observed shape surface,
+not a declared GQL graph type.</p>
+<p><code>SHOW CURRENT GRAPH SHAPE</code> is available on schema version 5 or newer databases.
+Older supported databases can still be opened for reads, but must be migrated
+explicitly before this command is valid. Schema version 5 introduced this
+inventory through the write planner instead of persistent graph-shape triggers.</p>
+<p>The default projection returns <code>element_kind</code>, <code>element_name</code>, <code>property_name</code>,
+<code>observed_type</code>, <code>owner_count</code>, <code>present_count</code>, and <code>missing_count</code>.
+<code>YIELD *</code> exposes the full row shape, including <code>surface</code>, <code>source_label</code>,
+<code>target_label</code>, <code>required</code>, <code>storage_class</code>, and <code>tag</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sd">        SHOW CURRENT GRAPH SHAPE</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sd">        YIELD element_kind, element_name, property_name, observed_type, owner_count</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sd">        WHERE element_kind = &#39;node_property&#39;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sd">        RETURN element_name, property_name, observed_type, owner_count</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="k">with</span> <span class="n">table</span><span class="o">.</span><span class="n">rows</span><span class="p">()</span> <span class="k">as</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>                <span class="nb">print</span><span class="p">([</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
+</span></code></pre></div>
+<p>Use <code>YIELD</code> to compose the command with <code>WHERE</code> and <code>RETURN</code>. Plain
+<code>SHOW CURRENT GRAPH SHAPE</code> returns the default projection; <code>YIELD *</code> exposes the
+full current row shape.</p>
+<hr />
+<h2 id="fulltext-search">Fulltext Search<a class="headerlink" href="#fulltext-search" title="Permanent link">&para;</a></h2>
+<p>BM25 fulltext search is available through normal Cypher execution. Define
+indexes with <code>CREATE FULLTEXT INDEX</code> and query them with
+<code>CALL db.index.fulltext.queryNodes(...)</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="sd">        CREATE FULLTEXT INDEX paperText</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="sd">        FOR (n:Paper) ON EACH [n.title, n.abstract]</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="p">)</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="sd">        CALL db.index.fulltext.queryNodes(&#39;paperText&#39;, &#39;abstract:vector&#39;)</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="sd">        YIELD node, score</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="sd">        RETURN node, score</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    <span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>        <span class="k">with</span> <span class="n">table</span><span class="o">.</span><span class="n">rows</span><span class="p">()</span> <span class="k">as</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>                <span class="nb">print</span><span class="p">([</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
+</span></code></pre></div>
+<p>The query string supports this fulltext grammar:</p>
+<ul>
+<li>Terms: <code>vector search</code></li>
+<li>Phrases: <code>"vector search"</code></li>
+<li>Field scoping by indexed property: <code>title:graph</code>, <code>abstract:"vector search"</code></li>
+<li>Boolean operators and grouping: <code>graph AND (vector OR semantic)</code></li>
+<li>Default <code>OR</code> between adjacent terms: <code>vector search</code></li>
+<li>Required and excluded terms: <code>+vector -draft</code></li>
+<li>Phrase slop: <code>"vector search"~2</code></li>
+<li>Phrase prefix on the last phrase term: <code>"vector sea"*</code></li>
+<li>Boosts: <code>title:graph^2.0</code></li>
+<li>Match all indexed nodes: <code>*</code></li>
+</ul>
+<p>Field scoping applies to the next term or phrase only. For example,
+<code>title:graph search</code> searches <code>graph</code> in <code>title</code> and <code>search</code> in the default
+fulltext field.</p>
+<p><code>score</code> is a non-normalized relevance score. Higher scores are better within a
+single query result set; scores are not guaranteed to be in <code>0..1</code> or
+comparable across different queries.</p>
+<p>Fulltext indexes use a sidecar next to file-backed databases. The sidecar is
+kept up to date by writes and rebuilt on open if it is missing or corrupt.</p>
+<hr />
+<h2 id="vector-search">Vector Search<a class="headerlink" href="#vector-search" title="Permanent link">&para;</a></h2>
+<p>Register an embedding callback, then reference it from <code>CREATE VECTOR INDEX</code>.
+Velr invokes the callback for index maintenance when indexed source values
+change and for text queries passed to <code>CALL db.index.vector.queryNodes(...)</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">embed_text</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="c1"># Call your embedding model here.</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="k">return</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dimensions</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">embedder</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="n">vectors</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="k">for</span> <span class="nb">input</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>            <span class="nb">str</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">input</span><span class="o">.</span><span class="n">fields</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>            <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">value_type</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>        <span class="p">)</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;query: &quot;</span> <span class="k">if</span> <span class="nb">input</span><span class="o">.</span><span class="n">purpose</span> <span class="o">==</span> <span class="s2">&quot;query&quot;</span> <span class="k">else</span> <span class="s2">&quot;passage: &quot;</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>        <span class="n">vectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">embed_text</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">text</span><span class="p">,</span> <span class="nb">input</span><span class="o">.</span><span class="n">dimensions</span><span class="p">))</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>    <span class="k">return</span> <span class="n">vectors</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>    <span class="n">db</span><span class="o">.</span><span class="n">register_vector_embedder</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">embedder</span><span class="p">)</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="sd">        CREATE VECTOR INDEX paperEmbedding IF NOT EXISTS</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="sd">        FOR (n:Paper)</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="sd">        ON EACH [n.title, n.abstract]</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="sd">        OPTIONS { indexConfig: { dimensions: 384, metric: &#39;cosine&#39;, embedder: &#39;text&#39; } }</span>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>    <span class="p">)</span>
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span>
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="sd">        CALL db.index.vector.queryNodes(&#39;paperEmbedding&#39;, 10, &#39;paper about greek letters&#39;)</span>
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="sd">        YIELD node, score</span>
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="sd">        RETURN node, score</span>
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>    <span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>        <span class="k">with</span> <span class="n">table</span><span class="o">.</span><span class="n">rows</span><span class="p">()</span> <span class="k">as</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>                <span class="nb">print</span><span class="p">([</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
+</span></code></pre></div>
+<p><code>ON EACH [n.title, n.abstract]</code> passes both property values to the callback in
+that order. Query text is passed as one unnamed string field. Vector <code>score</code> is
+metric-dependent and non-normalized; higher scores are better within a single
+query result set.</p>
+<hr />
+<h2 id="query-model">Query model<a class="headerlink" href="#query-model" title="Permanent link">&para;</a></h2>
+<p>A query may produce zero or more result tables.</p>
+<p>Velr exposes three main ways to run Cypher:</p>
+<ul>
+<li><code>run()</code> executes a query or script and drains all result tables.</li>
+<li><code>exec()</code> returns a stream of result tables.</li>
+<li><code>exec_one()</code> expects exactly one result table.</li>
+</ul>
+<h3 id="run"><code>run()</code><a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
+<p>Use <code>run()</code> when you only care about side effects:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CREATE (:Movie {title:&#39;Interstellar&#39;, released:2014})&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="exec_one"><code>exec_one()</code><a class="headerlink" href="#exec_one" title="Permanent link">&para;</a></h3>
+<p>Use <code>exec_one()</code> when the query should yield exactly one table:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CREATE (:Person {name:&#39;Alice&#39;, age:30})&quot;</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span><span class="s2">&quot;MATCH (p:Person) RETURN p.name AS name, p.age AS age&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">column_names</span><span class="p">())</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]))</span>
+</span></code></pre></div>
+<h3 id="exec"><code>exec()</code><a class="headerlink" href="#exec" title="Permanent link">&para;</a></h3>
+<p>Use <code>exec()</code> when a query or script may produce multiple result tables:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">MOVIES_CREATE</span><span class="p">)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        <span class="s2">&quot;MATCH (m:Movie {title:&#39;The Matrix&#39;}) RETURN m.title AS title; &quot;</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        <span class="s2">&quot;MATCH (m:Movie {title:&#39;Inception&#39;}) RETURN m.released AS released&quot;</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">stream</span><span class="o">.</span><span class="n">iter_tables</span><span class="p">():</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>            <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">column_names</span><span class="p">())</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>            <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]))</span>
+</span></code></pre></div>
+<hr />
+<h2 id="bounded-result-previews">Bounded result previews<a class="headerlink" href="#bounded-result-previews" title="Permanent link">&para;</a></h2>
+<p>Pass <code>max_result_rows</code> when a host needs projected column names and a small row
+sample without rewriting the Cypher text:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open_readonly</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="s2">&quot;MATCH (n) RETURN labels(n) AS labels, n.name AS name ORDER BY name&quot;</span><span class="p">,</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="n">max_result_rows</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        <span class="n">columns</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">column_names</span><span class="p">()</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>        <span class="n">sample</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</span></code></pre></div>
+<p><code>max_result_rows=0</code> preserves column metadata and makes row cursors return no
+rows:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open_readonly</span><span class="p">(</span><span class="s2">&quot;mygraph.db&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span><span class="s2">&quot;MATCH (n) RETURN n.name AS name&quot;</span><span class="p">,</span> <span class="n">max_result_rows</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>        <span class="k">assert</span> <span class="n">table</span><span class="o">.</span><span class="n">column_names</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>        <span class="k">assert</span> <span class="n">table</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">)</span> <span class="o">==</span> <span class="p">[]</span>
+</span></code></pre></div>
+<p>The cap is enforced by Velr during result emission, not by appending or
+injecting Cypher <code>LIMIT</code>, and applies independently to each result table
+produced by <code>exec()</code>. Existing Cypher <code>LIMIT</code> clauses still apply, so a query
+with <code>LIMIT 3</code> and <code>max_result_rows=5</code> emits at most three rows, while
+<code>LIMIT 10</code> with <code>max_result_rows=5</code> emits at most five rows. It is not a timeout
+or cancellation mechanism; keep read-only validation and execution deadlines as
+separate host concerns.</p>
+<h2 id="query-parameter-binding">Query parameter binding<a class="headerlink" href="#query-parameter-binding" title="Permanent link">&para;</a></h2>
+<p>Pass <code>params</code> to bind openCypher parameters out of band. Query text uses
+<code>$name</code>; parameter names in Python omit the leading <code>$</code>. Values are passed as
+Cypher values, not interpolated into query text, so a Python <code>str</code> is always a
+Cypher string value.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        <span class="s2">&quot;CREATE (:Person {name: $name, age: $age})&quot;</span><span class="p">,</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">},</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="p">)</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>        <span class="s2">&quot;MATCH (p:Person) WHERE p.age &gt;= $min_age RETURN p.name AS name ORDER BY name&quot;</span><span class="p">,</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        <span class="n">max_result_rows</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;min_age&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">},</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>    <span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">column_names</span><span class="p">())</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="p">[</span><span class="n">cell</span><span class="o">.</span><span class="n">as_python</span><span class="p">()</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]))</span>
+</span></code></pre></div>
+<p>Supported parameter values are <code>None</code>, booleans, signed 64-bit integers, finite
+floats, strings, lists/tuples, and dicts with string keys.</p>
+<hr />
+<h2 id="table-lifetime-and-ownership">Table lifetime and ownership<a class="headerlink" href="#table-lifetime-and-ownership" title="Permanent link">&para;</a></h2>
+<p>Table lifetime depends on how a table was obtained.</p>
+<h3 id="tables-from-exec">Tables from <code>exec()</code><a class="headerlink" href="#tables-from-exec" title="Permanent link">&para;</a></h3>
+<p>Tables pulled from <code>exec()</code> are <strong>stream-scoped</strong>.</p>
+<p>They remain valid while the producing stream remains open, and closing the stream closes any still-open tables produced by that stream.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="s2">&quot;MATCH (n) RETURN n&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">table</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">next_table</span><span class="p">()</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="c1"># table is valid here</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># stream is now closed, so any still-open table from it is also closed</span>
+</span></code></pre></div>
+<h3 id="tables-from-exec_one">Tables from <code>exec_one()</code><a class="headerlink" href="#tables-from-exec_one" title="Permanent link">&para;</a></h3>
+<p>Tables returned by <code>exec_one()</code> are <strong>parent-scoped</strong>, not stream-scoped.</p>
+<ul>
+<li><code>Velr.exec_one()</code> returns a table parented to the connection.</li>
+<li><code>VelrTx.exec_one()</code> returns a table parented to the transaction.</li>
+</ul>
+<p>That means the returned table remains usable after the internal stream logic used by <code>exec_one()</code> has finished.</p>
+<p>Even so, tables should still be closed when no longer needed, ideally by using them as context managers.</p>
+<hr />
+<h2 id="rows-and-cells">Rows and cells<a class="headerlink" href="#rows-and-cells" title="Permanent link">&para;</a></h2>
+<p>Rows are exposed through <code>Rows</code>. Each yielded row is a tuple of <code>Cell</code> objects.</p>
+<p><code>Cell.as_python()</code> converts values to normal Python objects:</p>
+<ul>
+<li><code>NULL</code> → <code>None</code></li>
+<li><code>BOOL</code> → <code>bool</code></li>
+<li><code>INT64</code> → <code>int</code></li>
+<li><code>DOUBLE</code> → <code>float</code></li>
+<li><code>TEXT</code> → <code>str</code> by default</li>
+<li><code>JSON</code> → <code>str</code> by default, or parsed Python objects with <code>parse_json=True</code></li>
+</ul>
+<p>Example:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span><span class="s2">&quot;MATCH (p:Person) RETURN p.name AS name, p.age AS age&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="k">with</span> <span class="n">table</span><span class="o">.</span><span class="n">rows</span><span class="p">()</span> <span class="k">as</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>            <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">as_python</span><span class="p">(),</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">as_python</span><span class="p">())</span>
+</span></code></pre></div>
+<p>For convenience and safety, TEXT and JSON payloads are copied into Python <code>bytes</code> as rows are read, so row contents remain valid after the next fetch.</p>
+<hr />
+<h2 id="transactions-and-savepoints">Transactions and savepoints<a class="headerlink" href="#transactions-and-savepoints" title="Permanent link">&para;</a></h2>
+<p>Use <code>begin_tx()</code> to open a transaction:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">begin_tx</span><span class="p">()</span> <span class="k">as</span> <span class="n">tx</span><span class="p">:</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CREATE (:Movie {title:&#39;Interstellar&#39;, released:2014})&quot;</span><span class="p">)</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span></code></pre></div>
+<p>If a transaction context exits without <code>commit()</code>, it is rolled back.</p>
+<p>After <code>commit()</code> or <code>rollback()</code>, a transaction can no longer be used.</p>
+<h3 id="savepoints">Savepoints<a class="headerlink" href="#savepoints" title="Permanent link">&para;</a></h3>
+<p>Velr supports two savepoint styles:</p>
+<ul>
+<li><code>savepoint()</code> creates a scoped, handle-owned savepoint.</li>
+<li><code>savepoint_named(name)</code> creates a transaction-owned named savepoint.</li>
+</ul>
+<p>Scoped savepoints are owned by the Python handle:</p>
+<ul>
+<li>dropping the handle closes the savepoint</li>
+<li><code>release()</code> releases it</li>
+<li><code>rollback()</code> rolls back to it and releases it</li>
+</ul>
+<p>Named savepoints are owned by the transaction:</p>
+<ul>
+<li>dropping the returned Python handle does not remove the named savepoint</li>
+<li><code>rollback_to(name)</code> rolls back to that named savepoint, discards any newer named savepoints, and keeps the target named savepoint active</li>
+<li><code>release_savepoint(name)</code> releases a named savepoint by name; the named savepoint must be the most recent active named savepoint</li>
+<li><code>release()</code> or <code>rollback()</code> on a named savepoint handle consume that named savepoint</li>
+</ul>
+<p>Active named savepoints are released automatically during <code>commit()</code> so that surviving changes are preserved in the committed transaction.</p>
+<p>Example:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">begin_tx</span><span class="p">()</span> <span class="k">as</span> <span class="n">tx</span><span class="p">:</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CREATE (:Temp {k:&#39;outer&#39;})&quot;</span><span class="p">)</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">savepoint_named</span><span class="p">(</span><span class="s2">&quot;sp1&quot;</span><span class="p">)</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CREATE (:Temp {k:&#39;a&#39;})&quot;</span><span class="p">)</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">savepoint_named</span><span class="p">(</span><span class="s2">&quot;sp2&quot;</span><span class="p">)</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CREATE (:Temp {k:&#39;b&#39;})&quot;</span><span class="p">)</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>        <span class="c1"># Undoes a and b, drops sp2,</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>        <span class="c1"># and keeps sp1 active.</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">rollback_to</span><span class="p">(</span><span class="s2">&quot;sp1&quot;</span><span class="p">)</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CREATE (:Temp {k:&#39;c&#39;})&quot;</span><span class="p">)</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">release_savepoint</span><span class="p">(</span><span class="s2">&quot;sp1&quot;</span><span class="p">)</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>        <span class="n">tx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span></code></pre></div>
+<hr />
+<h2 id="pandas-polars-pyarrow-interop">pandas / Polars / PyArrow interop<a class="headerlink" href="#pandas-polars-pyarrow-interop" title="Permanent link">&para;</a></h2>
+<p>Velr can export result tables as Arrow IPC and convert them into:</p>
+<ul>
+<li><code>pyarrow.Table</code></li>
+<li><code>pandas.DataFrame</code></li>
+<li><code>polars.DataFrame</code></li>
+</ul>
+<h3 id="pandas">pandas<a class="headerlink" href="#pandas" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">MOVIES_CREATE</span><span class="p">)</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="n">df</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">(</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>        <span class="s2">&quot;MATCH (m:Movie) &quot;</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>        <span class="s2">&quot;RETURN m.title AS title, m.released AS released &quot;</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>        <span class="s2">&quot;ORDER BY released&quot;</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>    <span class="p">)</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="polars">Polars<a class="headerlink" href="#polars" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">MOVIES_CREATE</span><span class="p">)</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="n">df</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">to_polars</span><span class="p">(</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>        <span class="s2">&quot;MATCH (m:Movie) &quot;</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>        <span class="s2">&quot;RETURN m.title AS title, m.released AS released &quot;</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>        <span class="s2">&quot;ORDER BY released&quot;</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>    <span class="p">)</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="pyarrow">PyArrow<a class="headerlink" href="#pyarrow" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">MOVIES_CREATE</span><span class="p">)</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="n">tbl</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">to_pyarrow</span><span class="p">(</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>        <span class="s2">&quot;MATCH (m:Movie) &quot;</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>        <span class="s2">&quot;RETURN m.title AS title, m.released AS released &quot;</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>        <span class="s2">&quot;ORDER BY released&quot;</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>    <span class="p">)</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">tbl</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="export-from-an-existing-table">Export from an existing table<a class="headerlink" href="#export-from-an-existing-table" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span><span class="s2">&quot;MATCH (m:Movie) RETURN m.title AS title&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    <span class="n">pa_tbl</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_pyarrow</span><span class="p">()</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="n">df</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    <span class="n">pl_df</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_polars</span><span class="p">()</span>
+</span></code></pre></div>
+<hr />
+<h2 id="binding-arrow-pandas-polars-numpy-and-records">Binding Arrow, pandas, Polars, NumPy, and records<a class="headerlink" href="#binding-arrow-pandas-polars-numpy-and-records" title="Permanent link">&para;</a></h2>
+<p>Velr can also bind external columnar data under a logical name and query it from Cypher.</p>
+<p>Supported bind helpers include:</p>
+<ul>
+<li><code>bind_arrow()</code></li>
+<li><code>bind_pandas()</code></li>
+<li><code>bind_polars()</code></li>
+<li><code>bind_numpy()</code></li>
+<li><code>bind_records()</code></li>
+</ul>
+<h3 id="bind-a-pandas-dataframe">Bind a pandas DataFrame<a class="headerlink" href="#bind-a-pandas-dataframe" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">velr.driver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>    <span class="p">[</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>        <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>        <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">41</span><span class="p">},</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>    <span class="p">]</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="p">)</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>    <span class="n">db</span><span class="o">.</span><span class="n">bind_pandas</span><span class="p">(</span><span class="s2">&quot;_people&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="s2">    UNWIND BIND(&#39;_people&#39;) AS r</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="s2">    CREATE (:Person {name:r.name, age:r.age})</span>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>
+</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a>    <span class="n">out</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">(</span><span class="s2">&quot;MATCH (p:Person) RETURN p.name AS name, p.age AS age ORDER BY age&quot;</span><span class="p">)</span>
+</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="bind-a-list-of-dicts">Bind a list of dicts<a class="headerlink" href="#bind-a-list-of-dicts" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">41</span><span class="p">},</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="p">]</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>    <span class="n">db</span><span class="o">.</span><span class="n">bind_records</span><span class="p">(</span><span class="s2">&quot;_people&quot;</span><span class="p">,</span> <span class="n">rows</span><span class="p">)</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="s2">    UNWIND BIND(&#39;_people&#39;) AS r</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="s2">    CREATE (:Person {name:r.name, age:r.age})</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="explain-support">Explain support<a class="headerlink" href="#explain-support" title="Permanent link">&para;</a></h2>
+<p>Velr exposes explain traces through:</p>
+<ul>
+<li><code>Velr.explain()</code></li>
+<li><code>Velr.explain_analyze()</code></li>
+<li><code>VelrTx.explain()</code></li>
+<li><code>VelrTx.explain_analyze()</code></li>
+</ul>
+<p>These return an <code>ExplainTrace</code>, which can be navigated incrementally or fully materialized with <code>snapshot()</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="s2">&quot;MATCH (p:Person) RETURN p.name AS name&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">xp</span><span class="p">:</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">xp</span><span class="o">.</span><span class="n">to_compact_string</span><span class="p">())</span>
+</span></code></pre></div>
+<hr />
+<h2 id="query-language-support">Query language support<a class="headerlink" href="#query-language-support" title="Permanent link">&para;</a></h2>
+<p>Velr supports the openCypher query language. Exact error semantics, including
+error messages, categories, and timing, are not guaranteed to match other
+openCypher implementations.</p>
+<hr />
+<h2 id="supported-functions">Supported functions<a class="headerlink" href="#supported-functions" title="Permanent link">&para;</a></h2>
+<p>Velr currently supports these openCypher functions and constructors:</p>
+<h3 id="graph-and-path">Graph and path<a class="headerlink" href="#graph-and-path" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>id()</code></li>
+<li><code>type()</code></li>
+<li><code>labels()</code></li>
+<li><code>keys()</code></li>
+<li><code>properties()</code></li>
+<li><code>length()</code></li>
+<li><code>nodes()</code></li>
+<li><code>relationships()</code></li>
+</ul>
+<h3 id="lists-and-predicates">Lists and predicates<a class="headerlink" href="#lists-and-predicates" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>size()</code></li>
+<li><code>head()</code></li>
+<li><code>last()</code></li>
+<li><code>tail()</code></li>
+<li><code>reverse()</code></li>
+<li><code>range()</code></li>
+<li><code>all()</code></li>
+<li><code>any()</code></li>
+<li><code>none()</code></li>
+<li><code>single()</code></li>
+</ul>
+<h3 id="strings-and-conversion">Strings and conversion<a class="headerlink" href="#strings-and-conversion" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>coalesce()</code></li>
+<li><code>toInteger()</code></li>
+<li><code>toString()</code></li>
+<li><code>toLower()</code></li>
+<li><code>trim()</code></li>
+<li><code>substring()</code></li>
+<li><code>split()</code></li>
+</ul>
+<h3 id="numeric">Numeric<a class="headerlink" href="#numeric" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>abs()</code></li>
+<li><code>ceil()</code></li>
+<li><code>rand()</code></li>
+<li><code>sign()</code></li>
+<li><code>sqrt()</code></li>
+</ul>
+<h3 id="temporal">Temporal<a class="headerlink" href="#temporal" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>date()</code></li>
+<li><code>time()</code></li>
+<li><code>localtime()</code></li>
+<li><code>datetime()</code></li>
+<li><code>localdatetime()</code></li>
+<li><code>duration()</code></li>
+<li><code>datetime.fromepoch()</code></li>
+<li><code>datetime.fromepochmillis()</code></li>
+<li><code>date.realtime()</code>, <code>date.transaction()</code>, <code>date.statement()</code></li>
+<li><code>time.realtime()</code>, <code>time.transaction()</code>, <code>time.statement()</code></li>
+<li><code>localtime.realtime()</code>, <code>localtime.transaction()</code>, <code>localtime.statement()</code></li>
+<li><code>datetime.realtime()</code>, <code>datetime.transaction()</code>, <code>datetime.statement()</code></li>
+<li><code>localdatetime.realtime()</code>, <code>localdatetime.transaction()</code>, <code>localdatetime.statement()</code></li>
+</ul>
+<h3 id="aggregates">Aggregates<a class="headerlink" href="#aggregates" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>count()</code></li>
+<li><code>sum()</code></li>
+<li><code>avg()</code></li>
+<li><code>min()</code></li>
+<li><code>max()</code></li>
+<li><code>collect()</code></li>
+<li><code>percentileDisc()</code></li>
+<li><code>percentileCont()</code></li>
+</ul>
+<hr />
+<h2 id="thread-safety">Thread safety<a class="headerlink" href="#thread-safety" title="Permanent link">&para;</a></h2>
+<p>Velr connections and active result handles are <strong>not</strong> safe for concurrent use from multiple threads.</p>
+<p>If you need parallelism:</p>
+<ul>
+<li>open one connection per thread</li>
+<li>do not share active connections</li>
+<li>do not share transactions, streams, tables, row iterators, or explain traces across threads</li>
+</ul>
+<hr />
+<h2 id="platform-support">Platform support<a class="headerlink" href="#platform-support" title="Permanent link">&para;</a></h2>
+<p>The Python package wraps a bundled native runtime implemented in Rust.</p>
+<p>Supported distributions may include prebuilt binary wheels for common platforms. Where binary wheels are available, the compiled runtime is included with the package.</p>
+<p>Currently bundled targets:</p>
+<ul>
+<li>macOS (arm64)</li>
+<li>Linux x86_64</li>
+<li>Linux aarch64</li>
+<li>Windows x86_64</li>
+</ul>
+<hr />
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
+<p>See <a href="https://github.com/velr-ai/velr/blob/main/python/velrpy/LICENSE"><code>LICENSE</code></a> and <a href="https://github.com/velr-ai/velr/blob/main/python/velrpy/LICENSE.runtime"><code>LICENSE.runtime</code></a> for the full license texts.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../shell/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Velr CLI">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Velr CLI
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../rust-driver/" class="md-footer__link md-footer__link--next" aria-label="Next: Rust Driver">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Rust Driver
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Velr Tech AB
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/velr-ai/velr" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.tabs","navigation.top","navigation.tracking","search.highlight"],"search":"../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.0df4f2d0.min.js"></script>
+      
+        <script src="../../js/landing.js"></script>
+      
+    
+  </body>
+</html>
